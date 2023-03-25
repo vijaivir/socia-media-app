@@ -1,0 +1,7 @@
+[1] ADD, user1, 02-04-1997, user1@gmail.com, password
+[2] ADD, user2, 01-01-1997, user2@gmail.com, password
+[3] CREATE_POST, user1, "This is my first post"
+[4] EDIT_POST, user1, 1, "This is my first edited post"
+[5] DELETE_POST, user1, 1
+[6] CREATE_POST, user2, "This is my first post"
+[7] COMMENT, user2, 2, "Congratulations"

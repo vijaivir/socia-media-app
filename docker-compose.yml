@@ -5,9 +5,18 @@ services:
     container_name: mongo_database
     ports:
       - "27017:27017"
-
+      
   backend:
     build:
       context: ./app
     ports:
       - "5000:5000"
+    depends_on:
+      - database
+      - redis_cache
+      
+  redis_cache:
+    image: redis:latest
+    container_name: redis_cache
+    ports:
+      - "6379:6379"

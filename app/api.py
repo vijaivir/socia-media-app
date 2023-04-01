@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
+import redis
 
 client = MongoClient("mongodb://mongo_database", 27017)
+redis_client = redis.Redis(host='redis_cache', port=6379)
 
 db = client.user_database
 table = db.user_table

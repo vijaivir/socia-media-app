@@ -1,9 +1,7 @@
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
-import time 
-import requests
 
-client = MongoClient()
+client = MongoClient("mongodb://mongo_database", 27017)
 
 db = client.user_database
 table = db.user_table
@@ -74,5 +72,5 @@ def clear():
     
 
 if __name__ =="__main__":
-    app.run(host="0.0.0.0", debug=True, port=5000)
+    app.run(host="0.0.0.0", debug=True)
 

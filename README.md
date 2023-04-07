@@ -15,8 +15,8 @@ cd backend
 python3 input.py test.txt
 '''
 
-##1.0 Components
-###1.1 Database and Cache
+## 1.0 Components
+### 1.1 Database and Cache
 
 The application uses MongoDB to store information about the system and a implements a Redis cache to store frequently accessed data and improved performance. Both the MongoDB and Redis cache are exposed on the default ports 27017 and 6379 respectively.   The database uses the following schema to store user information:
 

@@ -5,3 +5,4 @@
 [5] DELETE_POST, user1, 1
 [6] CREATE_POST, user2, "This is my first post"
 [7] COMMENT, user2, 2, "Congratulations"
+[8] FRIEND_REQUEST, user1, user2

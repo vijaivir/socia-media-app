@@ -1,6 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, json
 from pymongo import MongoClient
 import redis
+import pika
 
 client = MongoClient("mongodb://mongo_database", 27017)
 redis_client = redis.Redis(host='redis_cache', port=6379)
@@ -65,7 +66,26 @@ def comment():
     global comment_id
     data = request.json
     table.update_one({'username': data['username']}, {'$push': {'comments': {'comment_id':comment_id, 'post_id':int(data['post_id']), 'comment':data['comment']}}})
+    return "Added Comment"
 
+
+@app.route("/friend_request", methods=["POST"])
+def friend_request():
+    data = request.json
+    connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))
+    channel = connection.channel()
+
+    channel.exchange_declare(exchange='friend_requests', exchange_type='fanout')
+
+    data = {
+        'from_user': data['from_user'],
+        'to_user': data['to_user']
+    }
+
+    channel.basic_publish(exchange='friend_requests', routing_key='', body=json.dumps(data))
+
+    connection.close()
+    return "request received"
 
 @app.route("/clear", methods=["GET"])
 def clear():

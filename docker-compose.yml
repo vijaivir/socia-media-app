@@ -14,9 +14,7 @@ services:
     depends_on:
       - database
       - redis_cache
-      - kafka
-    environment:
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      - rabbitmq
       
   redis_cache:
     image: redis:latest
@@ -32,20 +30,9 @@ services:
       - backend
     ports:
       - "80:80"
-
-  kafka:
-    image: bitnami/kafka:latest
-    container_name: kafka
-    ports:
-      - "9092:9092"
-    environment:
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_CREATE_TOPICS: "posts:1:1"
-      ALLOW_PLAINTEXT_LISTENER: "yes"
   
-  zookeeper:
-    image: zookeeper:latest
-    container_name: zookeeper
+  rabbitmq:
+    image: rabbitmq
     ports:
-      - "2181:2181"
+      - "5672:5672"
+      - "15672:15672"

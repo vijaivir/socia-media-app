@@ -19,6 +19,8 @@ def createCommand(line):
         requests.post(apiUrl + '/delete_post', json={'cmd':cmd, 'username':c[1], 'post_id':c[2]})
     elif(cmd == 'COMMENT'):
         requests.post(apiUrl + '/comment', json={'cmd':cmd, 'username':c[1], 'post_id':c[2], 'comment':c[3]})
+    elif(cmd == 'FRIEND_REQUEST'):
+        requests.post(apiUrl + '/friend_request', json={'cmd':cmd, 'from_user':c[1], 'to_user':c[2]})
 
 
 def readInputFile(fileName):

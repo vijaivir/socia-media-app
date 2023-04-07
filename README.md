@@ -4,23 +4,23 @@ The social media application allows users to create and share posts, it is a dem
 
 To run the sample script:
 
-'''
+```
 docker compose up
-'''
+```
 
 In another terminal:
 
-'''
+```
 cd backend
 python3 input.py test.txt
-'''
+```
 
 ## 1.0 Components
 ### 1.1 Database and Cache
 
 The application uses MongoDB to store information about the system and a implements a Redis cache to store frequently accessed data and improved performance. Both the MongoDB and Redis cache are exposed on the default ports 27017 and 6379 respectively.   The database uses the following schema to store user information:
 
-'''
+```
 {
     "username":"",
     "email":"",
@@ -31,13 +31,13 @@ The application uses MongoDB to store information about the system and a impleme
     "comments": [{"commentid":"", "postid":"", "comment":""}],
     ],
 }
-'''
+```
 
-###1.2 NGINX Load Balancer
+### 1.2 NGINX Load Balancer
 
 An NGINX load balancer has been configured to handle user loads by distributing incoming requests to multiple servers and improve availability. It acts as a reverse proxy that listens on port 80 and forwards incoming requests to the backend server:
 
-'''
+```
 events {
     worker_connections 1000;
 }
@@ -51,13 +51,13 @@ http {
         }
     }
 }
-'''
+```
 
 
-###1.3 RabbitMQ
+### 1.3 RabbitMQ
 The application supports real-time notifications using RabbitMQ for friend requests between users. It uses a fanout exchange and uses the main port 5672. 
 
-'''
+```
 @app.route("/friend_request", methods=["POST"])
 def friend_request():
     data = request.json
@@ -71,5 +71,5 @@ def friend_request():
     channel.basic_publish(exchange='friend_requests', routing_key='', body=json.dumps(data))
     connection.close()
     return "request received"
-'''
+```
 
